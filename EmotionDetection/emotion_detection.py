@@ -17,15 +17,22 @@ def emotion_detector(text_to_analyze):
 
     formatted_response = json.loads(response.text)
 
-    emotions = formatted_response['emotionPredictions'][0]['emotion']
-    dom_v = 0
-    dom_e = None
+    if response.status_code == 200:
 
-    for k, v in emotions.items():
-        if v > dom_v:
-            dom_v = v
-            dom_e = k
+        emotions = formatted_response['emotionPredictions'][0]['emotion']
+        dom_v = 0
+        dom_e = None
 
-    return {"anger": emotions['anger'], "disgust": emotions['disgust'],
-                "fear": emotions['fear'], "joy": emotions['joy'],
-                "sadness": emotions['sadness'], "dominant_emotion": dom_e}
+        for k, v in emotions.items():
+            if v > dom_v:
+                dom_v = v
+                dom_e = k
+
+        return {"anger": emotions['anger'], "disgust": emotions['disgust'],
+                    "fear": emotions['fear'], "joy": emotions['joy'],
+                    "sadness": emotions['sadness'], "dominant_emotion": dom_e}
+
+    elif response.status_code == 400:
+        return {"anger": None, "disgust": None,
+                    "fear": None, "joy": None,
+                    "sadness": None, "dominant_emotion": None}

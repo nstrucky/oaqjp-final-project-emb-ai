@@ -16,10 +16,10 @@ def emo_detector():
     '''
     text_to_analyze = request.args.get("textToAnalyze")
     response = emotion_detector(text_to_analyze)
-    anger = response['anger']
+    dom_e = response['dominant_emotion']
 
-    if anger is None:
-        return "Invalid input! Try again."
+    if dom_e is None:
+        return "Invalid text! Please try again."
 
     return f"""For the given statement, the system response is 'anger': {response['anger']},
          'disgust': {response['disgust']}, 'fear': {response['fear']}, 'joy': {response['joy']}
