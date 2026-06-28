@@ -1,6 +1,15 @@
-import requests, json #import the requests library to handle HTTP requests
+""" This module analyzes emotion in strings using watson EmotionPredict """
+
+import json
+import requests
 
 def emotion_detector(text_to_analyze):
+    """ This function takes a text string to analyze and outputs the 
+        emotions associated and their scores. Additionally it will 
+        determine which emotion is the dominant emotion. The result is returned
+        as a dictionary. 
+    """
+
     url = "https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict"
     headers = {"grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_stock"}
     text_to_send = { "raw_document": { "text": text_to_analyze } }
@@ -16,7 +25,7 @@ def emotion_detector(text_to_analyze):
         if v > dom_v:
             dom_v = v
             dom_e = k
-    
-    return {"anger": emotions['anger'], "disgust": emotions['disgust'], 
+
+    return {"anger": emotions['anger'], "disgust": emotions['disgust'],
                 "fear": emotions['fear'], "joy": emotions['joy'],
                 "sadness": emotions['sadness'], "dominant_emotion": dom_e}
