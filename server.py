@@ -26,7 +26,6 @@ def emo_detector():
           and 'sadness': {response['sadness']}. The dominant emotion is {response['dominant_emotion']}.
           """
 
-
 @app.route("/")
 def render_index_page():
     ''' This function initiates the rendering of the main application
